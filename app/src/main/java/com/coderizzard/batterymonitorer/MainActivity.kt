@@ -15,6 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.coderizzard.batterymonitorer.db.AppDatabase
 import com.coderizzard.batterymonitorer.ui.screen.HomeScreen
 import com.coderizzard.batterymonitorer.ui.theme.BatteryMonitorerTheme
@@ -48,13 +51,21 @@ class MainActivity : ComponentActivity() {
                 val percentageList by viewModel.latestPercentageInfo.collectAsState(emptyList())
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Row(modifier = Modifier.padding(innerPadding)) {
-                        HomeScreen(percentageList)
+                        val navController = rememberNavController()
+                        NavHost(
+                            navController = navController, startDestination = NavRoute.HOME
+                        ) {
+                            composable(route = NavRoute.HOME) {
+                                HomeScreen(percentageList)
+                            }
+                        }
                     }
                 }
             }
         }
     }
-
-
 }
 
+object NavRoute {
+    const val HOME = "home"
+}
