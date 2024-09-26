@@ -11,6 +11,8 @@ interface BtPercentageDao {
     @Query("SELECT * FROM BtStatusInfo ORDER BY timestamp DESC LIMIT 200")
     fun getAll() : Flow<List<BtStatusInfo>>
 
+    @Query("SELECT * FROM BtStatusInfo WHERE timestamp > :time ORDER BY timestamp DESC ")
+    fun getAllOlderThan(time : String) : List<BtStatusInfo>
     @Insert()
     suspend fun create(info : BtStatusInfo)
 
