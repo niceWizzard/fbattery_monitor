@@ -7,10 +7,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.coderizzard.batterymonitorer.db.dao.BtPercentageDao
 import com.coderizzard.batterymonitorer.db.dao.RespondentDao
-import com.coderizzard.batterymonitorer.db.entity.BtPercentage
+import com.coderizzard.batterymonitorer.db.entity.BtStatusInfo
 import com.coderizzard.batterymonitorer.db.entity.Respondent
 
-@Database(entities = [Respondent::class, BtPercentage::class], version = 1)
+@Database(entities = [Respondent::class, BtStatusInfo::class], version = 1)
 @TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun respondentDao(): RespondentDao

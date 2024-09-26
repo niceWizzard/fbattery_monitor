@@ -22,5 +22,5 @@ data class RespondentWithBtPercent(
         parentColumn = "id",
         entityColumn = "respondentId"
     )
-    val btPercentages : List<BtPercentage>
+    val btStatusInfos : List<BtStatusInfo>
 )

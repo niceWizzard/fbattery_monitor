@@ -7,19 +7,15 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.BigTextStyle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.coderizzard.batterymonitorer.App
 import com.coderizzard.batterymonitorer.MainActivity
 import com.coderizzard.batterymonitorer.R
 import com.coderizzard.batterymonitorer.db.AppDatabase
-import com.coderizzard.batterymonitorer.db.entity.BtPercentage
-import com.coderizzard.batterymonitorer.ui.viewmodel.HomeScreenViewModel
+import com.coderizzard.batterymonitorer.db.entity.BtStatusInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
-import java.util.Date
 
 class AppService : Service() {
 
@@ -65,11 +61,11 @@ class AppService : Service() {
         CoroutineScope(Dispatchers.IO).launch {
             val dao = db.btPercetageDao()
             dao.create(
-                BtPercentage(
+                BtStatusInfo(
                     timestamp = LocalDateTime.now(),
                     respondentId = 1,
                     percentage = info.percentage,
-                    id = 0
+                    temperature =info.temperature
                 )
             )
         }

@@ -1,13 +1,7 @@
 package com.coderizzard.batterymonitorer.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.coderizzard.batterymonitorer.db.dao.BtPercentageDao
-import com.coderizzard.batterymonitorer.db.entity.BtPercentage
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class HomeScreenViewModel(
     private val dao: BtPercentageDao

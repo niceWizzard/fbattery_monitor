@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 import java.util.Date
 
 class BatteryInfoWatcher(private val context: Context) {
-    private var _currentInfo = BatteryInfo(0, false, LocalDateTime.now())
+    private var _currentInfo = BatteryInfo(0, false, LocalDateTime.now(), -1)
 
     private var _isRunning = false
 
@@ -45,10 +45,14 @@ class BatteryInfoWatcher(private val context: Context) {
             val scale: Int = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
             (level * 100 / scale.toFloat())
         }
+        val temperature = batteryStatus?.let {intent: Intent ->
+            intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) / 10
+        } ?: -1
         return BatteryInfo(
             batteryPct?.toInt() ?: -1,
             isCharging,
-            LocalDateTime.now()
+            LocalDateTime.now(),
+            temperature
         )
     }
 
@@ -57,4 +61,9 @@ class BatteryInfoWatcher(private val context: Context) {
 
 }
 
-data class BatteryInfo(val percentage : Int, val isCharging : Boolean, val timestamp : LocalDateTime)
+data class BatteryInfo(
+    val percentage : Int,
+    val isCharging : Boolean,
+    val timestamp : LocalDateTime,
+    val temperature : Int,
+)

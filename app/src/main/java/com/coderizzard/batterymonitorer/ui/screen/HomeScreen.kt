@@ -8,16 +8,13 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.coderizzard.batterymonitorer.db.entity.BtPercentage
+import com.coderizzard.batterymonitorer.db.entity.BtStatusInfo
 import com.coderizzard.batterymonitorer.service.AppService
-import java.time.Instant
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.TimeZone
 
 
 @Composable
-fun HomeScreen(percentageList : List<BtPercentage>) {
+fun HomeScreen(percentageList : List<BtStatusInfo>) {
     val context = LocalContext.current
 
     Column() {
@@ -41,7 +38,7 @@ fun HomeScreen(percentageList : List<BtPercentage>) {
             val formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm:ss")
             items(percentageList, itemContent = { btPercentage ->
                 val date = formatter.format(btPercentage.timestamp)
-                Text("${btPercentage.percentage}% - at $date")
+                Text("${btPercentage.percentage}% | ${btPercentage.temperature}deg C - at $date")
             })
         }
     }
