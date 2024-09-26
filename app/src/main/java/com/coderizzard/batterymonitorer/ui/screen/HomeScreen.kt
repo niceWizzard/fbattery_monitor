@@ -40,12 +40,7 @@ fun HomeScreen(percentageList : List<BtPercentage>) {
         LazyColumn {
             val formatter = DateTimeFormatter.ofPattern("dd/MM HH:mm:ss")
             items(percentageList, itemContent = { btPercentage ->
-                val date = LocalDateTime.ofInstant(
-                    Instant.ofEpochSecond(btPercentage.timestamp),
-                    TimeZone.getDefault().toZoneId()
-                ).let {
-                    formatter.format(it)
-                }
+                val date = formatter.format(btPercentage.timestamp)
                 Text("${btPercentage.percentage}% - at $date")
             })
         }

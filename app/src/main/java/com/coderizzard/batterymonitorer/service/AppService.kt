@@ -18,6 +18,7 @@ import com.coderizzard.batterymonitorer.ui.viewmodel.HomeScreenViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import java.util.Date
 
 class AppService : Service() {
@@ -65,7 +66,7 @@ class AppService : Service() {
             val dao = db.btPercetageDao()
             dao.create(
                 BtPercentage(
-                    timestamp = info.timestamp.time,
+                    timestamp = LocalDateTime.now(),
                     respondentId = 1,
                     percentage = info.percentage,
                     id = 0

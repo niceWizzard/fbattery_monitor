@@ -7,10 +7,11 @@ import android.os.BatteryManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.time.LocalDateTime
 import java.util.Date
 
 class BatteryInfoWatcher(private val context: Context) {
-    private var _currentInfo = BatteryInfo(0, false, Date())
+    private var _currentInfo = BatteryInfo(0, false, LocalDateTime.now())
 
     private var _isRunning = false
 
@@ -47,7 +48,7 @@ class BatteryInfoWatcher(private val context: Context) {
         return BatteryInfo(
             batteryPct?.toInt() ?: -1,
             isCharging,
-            Date()
+            LocalDateTime.now()
         )
     }
 
@@ -56,4 +57,4 @@ class BatteryInfoWatcher(private val context: Context) {
 
 }
 
-data class BatteryInfo(val percentage : Int, val isCharging : Boolean, val timestamp : Date)
+data class BatteryInfo(val percentage : Int, val isCharging : Boolean, val timestamp : LocalDateTime)
