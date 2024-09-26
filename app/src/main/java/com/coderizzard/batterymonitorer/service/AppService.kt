@@ -10,16 +10,25 @@ import androidx.core.app.NotificationCompat.BigTextStyle
 import com.coderizzard.batterymonitorer.App
 import com.coderizzard.batterymonitorer.MainActivity
 import com.coderizzard.batterymonitorer.R
+import com.coderizzard.batterymonitorer.db.AppDatabase
+import com.coderizzard.batterymonitorer.db.entity.BtPercentage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class AppService : Service() {
 
+    private lateinit var db : AppDatabase
     private val batteryInfoWatcher = BatteryInfoWatcher(this)
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        db = AppDatabase.getDatabase(this@AppService)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -47,7 +56,17 @@ class AppService : Service() {
     }
 
     private fun saveToDb(info: BatteryInfo) {
-
+        CoroutineScope(Dispatchers.IO).launch {
+            val dao = db.btPercetageDao()
+            dao.create(
+                BtPercentage(
+                    timestamp = info.timestamp.time,
+                    respondentId = 1,
+                    percentage = info.percentage,
+                    id = 0
+                )
+            )
+        }
     }
 
 

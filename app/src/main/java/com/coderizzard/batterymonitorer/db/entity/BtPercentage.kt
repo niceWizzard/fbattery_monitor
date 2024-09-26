@@ -9,6 +9,6 @@ import java.util.Date
 data class BtPercentage(
     @PrimaryKey(autoGenerate = true) val id : Int,
     val percentage : Int,
-    val timestamp : Int,
+    val timestamp : Long,
     val respondentId : Int
 )
