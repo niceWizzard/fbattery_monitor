@@ -27,7 +27,9 @@ import com.coderizzard.batterymonitorer.ui.theme.BatteryMonitorerTheme
 import com.coderizzard.batterymonitorer.ui.viewmodel.HomeScreenEvent
 import com.coderizzard.batterymonitorer.ui.viewmodel.HomeScreenViewModel
 import com.coderizzard.batterymonitorer.ui.viewmodel.RespondentStateViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val db by lazy {
         AppDatabase.getDatabase(this@MainActivity)

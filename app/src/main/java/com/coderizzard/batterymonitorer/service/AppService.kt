@@ -12,11 +12,13 @@ import com.coderizzard.batterymonitorer.MainActivity
 import com.coderizzard.batterymonitorer.R
 import com.coderizzard.batterymonitorer.db.AppDatabase
 import com.coderizzard.batterymonitorer.db.entity.BtStatusInfo
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
+@AndroidEntryPoint
 class AppService : Service() {
 
     private lateinit var db : AppDatabase
