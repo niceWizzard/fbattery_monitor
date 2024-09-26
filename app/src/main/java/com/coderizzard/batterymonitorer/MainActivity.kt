@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.coderizzard.batterymonitorer.db.AppDatabase
 import com.coderizzard.batterymonitorer.db.entity.Respondent
+import com.coderizzard.batterymonitorer.ui.screen.HomeScreen
 import com.coderizzard.batterymonitorer.ui.theme.BatteryMonitorerTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,26 +31,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             BatteryMonitorerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(innerPadding)
+                    HomeScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
     }
 
-    @Composable
-    private fun MainScreen(innerPadding: PaddingValues) {
 
-        var isLoading by remember { mutableStateOf(true) }
-        var respondents by remember { mutableStateOf(emptyList<Respondent>()) }
-
-        Row(modifier = Modifier.padding(innerPadding)) {
-            if(isLoading)
-                Text("Loading data...")
-            else
-                for(resp in respondents) {
-                    Text(resp.toString())
-                }
-        }
-    }
 }
 
