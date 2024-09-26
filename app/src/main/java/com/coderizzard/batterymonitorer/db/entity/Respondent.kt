@@ -8,7 +8,7 @@ import androidx.room.Relation
 
 @Entity
 data class Respondent (
-    @PrimaryKey(autoGenerate = true) val id : Int,
+    @PrimaryKey val id : Int,
     @ColumnInfo(name ="first_name") val firstName : String,
     @ColumnInfo(name ="last_name") val lastName : String,
     @ColumnInfo(name = "year") val year : Int,
