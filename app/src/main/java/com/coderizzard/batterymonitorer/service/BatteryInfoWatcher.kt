@@ -23,7 +23,7 @@ class BatteryInfoWatcher(private val context: Context) {
             val batteryInfo = getCurrentBatteryInfo()
             _currentInfo = batteryInfo
             emit(batteryInfo)
-            delay(1000)
+            delay(5000)
         }
     }
 
