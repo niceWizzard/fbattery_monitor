@@ -4,34 +4,52 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.coderizzard.batterymonitorer.db.AppDatabase
-import com.coderizzard.batterymonitorer.db.entity.Respondent
 import com.coderizzard.batterymonitorer.ui.screen.HomeScreen
 import com.coderizzard.batterymonitorer.ui.theme.BatteryMonitorerTheme
+import com.coderizzard.batterymonitorer.ui.viewmodel.HomeScreenEvent
+import com.coderizzard.batterymonitorer.ui.viewmodel.HomeScreenViewModel
 
 class MainActivity : ComponentActivity() {
+    private val db by lazy {
+        AppDatabase.getDatabase(this@MainActivity)
+    }
+
+    private val viewModel by viewModels<HomeScreenViewModel>(
+        factoryProducer = {
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(
+                    modelClass: Class<T>,
+                    extras: CreationExtras
+                ): T {
+                    return HomeScreenViewModel(dao=db.btPercetageDao()) as T
+                }
+            }
+        }
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         setContent {
             BatteryMonitorerTheme {
+                viewModel.onEvent(HomeScreenEvent.RefetchLatestPercentage)
+                val percentageList by viewModel.latestPercentageInfo.collectAsState(emptyList())
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(modifier = Modifier.padding(innerPadding))
+                    Row(modifier = Modifier.padding(innerPadding)) {
+                        HomeScreen(percentageList)
+                    }
                 }
             }
         }

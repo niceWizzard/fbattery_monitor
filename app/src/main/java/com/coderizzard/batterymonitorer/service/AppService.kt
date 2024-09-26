@@ -7,11 +7,14 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.BigTextStyle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.coderizzard.batterymonitorer.App
 import com.coderizzard.batterymonitorer.MainActivity
 import com.coderizzard.batterymonitorer.R
 import com.coderizzard.batterymonitorer.db.AppDatabase
 import com.coderizzard.batterymonitorer.db.entity.BtPercentage
+import com.coderizzard.batterymonitorer.ui.viewmodel.HomeScreenViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,6 +24,8 @@ class AppService : Service() {
 
     private lateinit var db : AppDatabase
     private val batteryInfoWatcher = BatteryInfoWatcher(this)
+
+
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
