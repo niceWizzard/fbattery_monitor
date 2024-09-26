@@ -5,10 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.content.MediaType.Companion.Text
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -20,6 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.coderizzard.batterymonitorer.db.AppDatabase
 import com.coderizzard.batterymonitorer.ui.screen.HomeScreen
+import com.coderizzard.batterymonitorer.ui.screen.MySplashScreen
 import com.coderizzard.batterymonitorer.ui.theme.BatteryMonitorerTheme
 import com.coderizzard.batterymonitorer.ui.viewmodel.HomeScreenEvent
 import com.coderizzard.batterymonitorer.ui.viewmodel.HomeScreenViewModel
@@ -52,11 +55,18 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Row(modifier = Modifier.padding(innerPadding)) {
                         val navController = rememberNavController()
+
                         NavHost(
-                            navController = navController, startDestination = NavRoute.HOME
+                            navController = navController, startDestination = NavRoute.SPLASH
                         ) {
                             composable(route = NavRoute.HOME) {
                                 HomeScreen(percentageList)
+                            }
+                            composable(route = NavRoute.SPLASH) {
+                                MySplashScreen(navController)
+                            }
+                            composable(route = NavRoute.ONBOARDING) {
+                                Text("This is onboarding")
                             }
                         }
                     }
@@ -67,5 +77,7 @@ class MainActivity : ComponentActivity() {
 }
 
 object NavRoute {
+    const val SPLASH = "splash"
     const val HOME = "home"
+    const val ONBOARDING="onboarding"
 }
