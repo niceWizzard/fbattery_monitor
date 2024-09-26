@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BtPercentageDao {
-    @Query("SELECT * FROM BtPercentage ORDER BY timestamp DESC")
+    @Query("SELECT * FROM BtPercentage ORDER BY timestamp DESC LIMIT 200")
     fun getAll() : Flow<List<BtPercentage>>
 
     @Insert()
